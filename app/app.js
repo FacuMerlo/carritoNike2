@@ -48,22 +48,30 @@ function agregarAlCarrito(numeroProducto) {
   calcularTotal();
 
   localStorage.setItem('carrito', JSON.stringify(carrito));
+  mostrarAlerta(`Producto ${productos[numeroProducto].nombre} agregado al carrito.`);
 }
 
 
 function verCarrito() {
   const seccionCarrito = document.getElementById('carrito');
   seccionCarrito.innerHTML = '<h2>Carrito:</h2>';
+  seccionCarrito.innerHTML += '<div class="productos-carrito">';
 
   Object.keys(carrito).forEach((numeroProducto) => {
       const producto = productos[numeroProducto];
       const divItemCarrito = document.createElement('div');
       divItemCarrito.className = 'item-carrito';
       divItemCarrito.innerHTML = `
-          <p>${producto.nombre} - Cantidad: ${carrito[numeroProducto]} - Precio: $${producto.precio}</p>
-      `;
+      <img src="${producto.imagen}" alt="${producto.nombre}" class="imagen-carrito">
+      <div class="info-producto-carrito">
+        <p class="nombre-producto-carrito">${producto.nombre}</p>
+        <p>Cantidad: ${carrito[numeroProducto]}</p>
+        <p>Precio: $${producto.precio}</p>
+      </div>
+    `;
       seccionCarrito.appendChild(divItemCarrito);
   });
+  seccionCarrito.innerHTML += '</div>';
 }
 
 function calcularTotal() {
@@ -75,7 +83,12 @@ function calcularTotal() {
   });
 
   const seccionTotal = document.getElementById('total');
-  seccionTotal.innerHTML = `<h3>Total: $${total.toFixed(2)}</h3>`;
+  seccionTotal.innerHTML = `
+    <div class="total-container">
+      <h3>Total:</h3>
+      <p class="total-cont">$${total.toFixed(2)}</p>
+    </div>
+  `;
 }
 
 function vaciarCarrito() {
@@ -83,9 +96,25 @@ function vaciarCarrito() {
   verCarrito(); 
   calcularTotal(); 
   localStorage.removeItem('carrito');
-  alert('El carrito ha sido vaciado.');
+  mostrarAlerta('El carrito ha sido vaciado.');
 }
 
+function mostrarAlerta(mensaje) {
+  const alertDiv = document.createElement('div');
+  alertDiv.classList.add('alert-message');
+  alertDiv.textContent = mensaje;
+
+  const acceptButton = document.createElement('button');
+  acceptButton.textContent = 'Aceptar';
+  acceptButton.onclick = function() {
+    alertDiv.remove();
+  };
+  acceptButton.classList.add('accept-button');
+
+  alertDiv.appendChild(acceptButton);
+
+  document.getElementById('alert-container').appendChild(alertDiv);
+}
 
 // Eventos para los botones 
 document.addEventListener('DOMContentLoaded', () => {
@@ -97,7 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
   btnVerProductos.addEventListener('click', mostrarProductos);
   btnVerCarrito.addEventListener('click', verCarrito);
   btnFinalizarCompra.addEventListener('click', () => {
-      alert('Gracias por tu compra. ¡Hasta la próxima!');
+      mostrarAlerta('Gracias por tu compra. ¡Hasta la próxima!');
   });
   btnVaciarCarrito.addEventListener('click', vaciarCarrito);
 
