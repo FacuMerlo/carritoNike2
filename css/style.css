@@ -1,0 +1,190 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Colores principales */
+:root {
+  --color-primario: #0d6efd; 
+  --color-secundario: #6c757d; 
+  --color-acento: #ffc107; 
+  --color-fondo: #8e9eab, #3f4c6b, #0f2027;
+  --color-texto: #212529; 
+  --color-texto-carrito-total: #ffffff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, var(--color-fondo));
+  color: var(--color-texto);
+}
+
+header {
+  background-color: var(--color-primario);
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+}
+
+main {
+  margin: 20px;
+}
+/*CARRITO-COMPRAS*/
+.carritoCss,.totalCss {
+  border: 1px solid var(--color-primario);
+  margin-bottom: 20px;
+  padding: 10px;
+  color: var(--color-texto-carrito-total);
+  font-weight: bold;
+}
+
+
+button {
+  background-color: var(--color-acento);
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
+  margin: 5px;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.producto {
+  border: 1px solid var(--color-secundario);
+  padding: 10px;
+  text-align: center;
+  background-color: white;
+}
+
+.producto-imagen {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+/*Footer*/
+.footer-main {
+  color: #fff;
+  background-color: #111;
+  font-family: 'Arial', sans-serif;
+  padding: 40px 0;
+}
+
+.footer-top {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.footer-brand {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  padding: 20px; 
+  text-align: center;
+}
+
+.footer-logo {
+  width: 150px;
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  flex: 2; 
+  display: flex;
+  justify-content: space-around; 
+}
+
+.footer-column {
+  flex: 1;
+  padding: 0 20px;
+}
+
+.footer-column h4 {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-column ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+  color: #ffc107; /* Color de acento */
+}
+
+.footer-bottom {
+  text-align: center;
+  border-top: 1px solid #333;
+  padding-top: 20px;
+}
+
+/*MediaQueries*/
+
+@media (max-width: 768px) {
+  header {
+    padding: 5px 0;
+  }
+
+  button {
+    padding: 5px 10px;
+  }
+
+  .grid-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .footer-top {
+    flex-direction: column;
+  }
+
+  .footer-brand, .footer-links {
+    flex-basis: 100%;
+    margin-bottom: 30px;
+  }
+
+  .footer-column {
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-container {
+    grid-template-columns: 1fr;
+  }
+
+  header h1{
+    font-size: 1.5em;
+  }
+
+  .producto-imagen {
+    width: 50%;
+    margin: 0 auto; /* Centra la imagen */
+  }
+
+  button {
+    width: 100%;
+    margin: 10px 0;
+  }
+}
+
