@@ -27,7 +27,7 @@ function mostrarProductos() {
       divProducto.className = 'producto';
       divProducto.innerHTML = `
           <h3>${producto.nombre}</h3>
-          <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-imagen">
+          <img src="${producto.imagen}" alt="${producto.nombre}" class="productoImagen">
           <p>Precio: $${producto.precio}</p>
           <button onclick="agregarAlCarrito('${numero}')">Agregar al Carrito</button>
       `;
@@ -55,16 +55,16 @@ function agregarAlCarrito(numeroProducto) {
 function verCarrito() {
   const seccionCarrito = document.getElementById('carrito');
   seccionCarrito.innerHTML = '<h2>Carrito:</h2>';
-  seccionCarrito.innerHTML += '<div class="productos-carrito">';
+  seccionCarrito.innerHTML += '<div class="productosCarrito">';
 
   Object.keys(carrito).forEach((numeroProducto) => {
       const producto = productos[numeroProducto];
       const divItemCarrito = document.createElement('div');
-      divItemCarrito.className = 'item-carrito';
+      divItemCarrito.className = 'itemCarrito';
       divItemCarrito.innerHTML = `
-      <img src="${producto.imagen}" alt="${producto.nombre}" class="imagen-carrito">
-      <div class="info-producto-carrito">
-        <p class="nombre-producto-carrito">${producto.nombre}</p>
+      <img src="${producto.imagen}" alt="${producto.nombre}" class="imagenCarrito">
+      <div class="infoProductoCarrito">
+        <p class="nombreProductoCarrito">${producto.nombre}</p>
         <p>Cantidad: ${carrito[numeroProducto]}</p>
         <p>Precio: $${producto.precio}</p>
       </div>
@@ -84,9 +84,9 @@ function calcularTotal() {
 
   const seccionTotal = document.getElementById('total');
   seccionTotal.innerHTML = `
-    <div class="total-container">
+    <div>
       <h3>Total:</h3>
-      <p class="total-cont">$${total.toFixed(2)}</p>
+      <p class="totalCont">$${total.toFixed(2)}</p>
     </div>
   `;
 }
@@ -101,19 +101,19 @@ function vaciarCarrito() {
 
 function mostrarAlerta(mensaje) {
   const alertDiv = document.createElement('div');
-  alertDiv.classList.add('alert-message');
+  alertDiv.classList.add('alertMesj');
   alertDiv.textContent = mensaje;
 
-  const acceptButton = document.createElement('button');
-  acceptButton.textContent = 'Aceptar';
-  acceptButton.onclick = function() {
+  const botAcept = document.createElement('button');
+  botAcept.textContent = 'Aceptar';
+  botAcept.onclick = function() {
     alertDiv.remove();
   };
-  acceptButton.classList.add('accept-button');
+  botAcept.classList.add('botAcept');
 
-  alertDiv.appendChild(acceptButton);
+  alertDiv.appendChild(botAcept);
 
-  document.getElementById('alert-container').appendChild(alertDiv);
+  document.getElementById('alertContainer').appendChild(alertDiv);
 }
 
 // Eventos para los botones 

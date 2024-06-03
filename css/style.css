@@ -16,6 +16,10 @@
   --color-botonAlert:#4A6FA5;
 }
 
+.ocultar{
+  display: none;
+}
+
 body {
   font-family: Arial, sans-serif;
   background: linear-gradient(to bottom, var(--color-fondo));
@@ -27,12 +31,35 @@ header {
   color: white;
   padding: 10px 0;
   text-align: center;
+  position:sticky;
+  top: 0;
+}
+
+/*PRODUCTOS*/
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+}
+
+.producto {
+  border: 1px solid var(--color-secundario);
+  padding: 10px;
+  text-align: center;
+  background-color: white;
+}
+
+.productoImagen {
+  width: 100%;
+  height: auto;
+  margin-bottom: 10px;
 }
 
 main {
   margin: 20px;
 }
-/*CARRITO-COMPRAS*/
+/*CARRITO-COMPRAS-TOTAL*/
 .carritoCss,.totalCss {
   border: 5px solid var(--color-primario);
   margin-bottom: 20px;
@@ -42,51 +69,48 @@ main {
   font-weight: bold;
 }
 
-/* Estilos para la sección del carrito */
-.productos-carrito {
-  display: flex;
-  flex-direction: column;
-}
-
-.item-carrito {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.imagen-carrito {
-  width: 50px;
-  height: auto;
-  margin-right: 10px;
-}
-
-.info-producto-carrito {
-  display: flex;
-  flex-direction: column;
-}
-
-.nombre-producto-carrito {
-  font-weight: bold;
-}
-
-/* Estilos para la sección total */
-
-.total-cont {
+.totalCont {
   font-size: 1.5em;
   font-weight: bold;
   color: var(--color-primario);
 }
 
+/* PRODUCTOS-CARRITO*/
+.productosCarrito {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemCarrito {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.imagenCarrito {
+  width: 50px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.infoProductoCarrito {
+  display: flex;
+  flex-direction: column;
+}
+
+.nombreProductoCarrito {
+  font-weight: bold;
+}
 
 /*ALERTA-MENSAJES*/
-#alert-container {
+.AlertMensCont {
   position: fixed;
   top: 10px;
   right: 10px;
   z-index: 1000;
 }
 
-.alert-message {
+.alertMesj {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -100,7 +124,7 @@ main {
   position: relative;
 }
 
-.accept-button {
+.botAcept {
   padding: 5px 10px;
   margin-left: 10px;
   background: var(--color-botonAlert);
@@ -123,41 +147,22 @@ button:hover {
   opacity: 0.8;
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 10px;
-}
-
-.producto {
-  border: 1px solid var(--color-secundario);
-  padding: 10px;
-  text-align: center;
-  background-color: white;
-}
-
-.producto-imagen {
-  width: 100%;
-  height: auto;
-  margin-bottom: 10px;
-}
-
-/*Footer*/
-.footer-main {
+/*FOOTER*/
+.footerMain {
   color: #fff;
   background-color: #111;
   font-family: 'Arial', sans-serif;
   padding: 40px 0;
 }
 
-.footer-top {
+.footerTop {
   display: flex;
   align-items: center; 
   justify-content: space-between;
   margin-bottom: 40px;
 }
 
-.footer-brand {
+.footerBrand {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -167,43 +172,43 @@ button:hover {
   text-align: center;
 }
 
-.footer-logo {
+.footerLogo {
   width: 150px;
   margin-bottom: 20px;
 }
 
-.footer-links {
+.footerLinks {
   flex: 2; 
   display: flex;
   justify-content: space-around; 
 }
 
-.footer-column {
+.footerColumn {
   flex: 1;
   padding: 0 20px;
 }
 
-.footer-column h4 {
+.footerColumn h4 {
   font-size: 18px;
   margin-bottom: 15px;
 }
 
-.footer-column ul {
+.footerColumn ul {
   list-style: none;
   padding: 0;
 }
 
-.footer-column ul li a {
+.footerColumn ul li a {
   color: #fff;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
-.footer-column ul li a:hover {
+.footerColumn ul li a:hover {
   color: #ffc107; 
 }
 
-.footer-bottom {
+.footerBottom {
   text-align: center;
   border-top: 1px solid #333;
   padding-top: 20px;
@@ -220,26 +225,26 @@ button:hover {
     padding: 5px 10px;
   }
 
-  .grid-container {
+  .gridContainer {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .footer-top {
+  .footerTop {
     flex-direction: column;
   }
 
-  .footer-brand, .footer-links {
+  .footerBrand, .footerLinks {
     flex-basis: 100%;
     margin-bottom: 30px;
   }
 
-  .footer-column {
+  .footerColumn {
     margin-bottom: 20px;
   }
 }
 
 @media (max-width: 480px) {
-  .grid-container {
+  .gridContainer {
     grid-template-columns: 1fr;
   }
 
@@ -247,7 +252,7 @@ button:hover {
     font-size: 1.5em;
   }
 
-  .producto-imagen {
+  .productoImagen {
     width: 50%;
     margin: 0 auto;
   }
