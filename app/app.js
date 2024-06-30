@@ -1,88 +1,160 @@
-// Lista de productos de la tienda NIKE.
-let productos = {
-  '1': {'nombre': 'Remera Jordan Jumpman', 'precio': 45999, 'imagen':'./assets/img/remeraJordanJumpman.jpg'}, 
-  '2': {'nombre': 'Remera Jordan Flight Heritage 85', 'precio': 69999, 'imagen':'./assets/img/remeraJordanFlightHeritage85.jpg'}, 
-  '3': {'nombre': 'Buzo Nike Sportswear Tech Fleece OG', 'precio': 197999, 'imagen':'./assets/img/buzoNikeSportswearTechFleeceOg.jpg'},
-  '4': {'nombre': 'Buzo Ja Standard Issue', 'precio': 101499, 'imagen':'./assets/img/buzoJaStandardIssue.jpg'},
-  '5': {'nombre': 'Pantalón Jordan Essentials', 'precio': 139999, 'imagen':'./assets/img/pantalonJordanEssentials.jpg'},
-  '6': {'nombre': 'Pantalón Nike Sportswear Club', 'precio': 86499, 'imagen':'./assets/img/pantalonNikeSportswearClub.jpg'},
-  '7': {'nombre': 'Zapatillas Nike Air Force 1 07', 'precio': 209999, 'imagen':'./assets/img/zapatillasNikeAirForce107.jpg'},
-  '8': {'nombre': 'Zapatillas Air Jordan 1 Low', 'precio': 209999, 'imagen':'./assets/img/zapatillasAirJordan1Low.jpg'},
-  '9': {'nombre': 'Campera Jordan para Mujer', 'precio': 197999, 'imagen':'./assets/img/camperaJordanParaMujer.jpg'},
-  '10': {'nombre': 'Campera Nike Sportswear Trend', 'precio': 180249, 'imagen':'./assets/img/camperaNikeSportswearTrend.jpg'},
-  '11': {'nombre': 'Pelota Nike Mercurial Fade', 'precio': 41999, 'imagen':'./assets/img/pelotaNikeMercurialFade.jpg'},
-  '12': {'nombre': 'Gorro Nike Apex', 'precio': 45999, 'imagen':'./assets/img/gorroNikeApex.jpg'},
-};
+document.addEventListener("DOMContentLoaded", () => {
+  const cargarDatos = async () => {
+    try {
+      const response = await fetch("productos.json");
+      if (!response.ok) {
+        throw new Error("Error al cargar los productos");
+      }
+      const productos = await response.json();
+      window.productosGlobal = productos;
+      mostrarProductos(productos);
+      if (Object.keys(carrito).length > 0) {
+        verCarrito();
+        calcularTotal();
+        mostrarSeccionesCarrito();
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+  cargarDatos();
 
-let carrito = JSON.parse(localStorage.getItem('carrito')) || {};
+  const btnFinalizarCompra = document.getElementById("finalizarCompra");
+  const btnVaciarCarrito = document.getElementById("vaciarCarrito");
+
+  btnFinalizarCompra.addEventListener("click", finalizarCompra);
+  btnVaciarCarrito.addEventListener("click", vaciarCarrito);
+});
+
+let carrito = JSON.parse(localStorage.getItem("carrito")) || {};
+
+// Mostrar secciones del carrito
+function mostrarSeccionesCarrito() {
+  document.getElementById("carritoSection").style.display = "block";
+  document.getElementById("finalizarCompra").style.display = "inline-block";
+  document.getElementById("vaciarCarrito").style.display = "inline-block";
+}
+
+// Ocultar secciones del carrito
+function ocultarSeccionesCarrito() {
+  document.getElementById("carritoSection").style.display = "none";
+  document.getElementById("finalizarCompra").style.display = "none";
+  document.getElementById("vaciarCarrito").style.display = "none";
+}
 
 // Funciones del carrito
-function mostrarProductos() {
-  const seccionProductos = document.getElementById('productos');
-  seccionProductos.innerHTML = '';
+function mostrarProductos(productos) {
+  const seccionProductos = document.getElementById("productos");
+  seccionProductos.innerHTML = "";
 
   Object.keys(productos).forEach((numero) => {
-      const producto = productos[numero];
-      const divProducto = document.createElement('div');
-      divProducto.className = 'producto';
-      divProducto.innerHTML = `
+    const producto = productos[numero];
+    const divProducto = document.createElement("div");
+    divProducto.className = "producto";
+    divProducto.innerHTML = `
           <h3>${producto.nombre}</h3>
           <img src="${producto.imagen}" alt="${producto.nombre}" class="productoImagen">
           <p>Precio: $${producto.precio}</p>
           <button onclick="agregarAlCarrito('${numero}')">Agregar al Carrito</button>
       `;
-      seccionProductos.appendChild(divProducto);
+    seccionProductos.appendChild(divProducto);
   });
 }
 
-
-function agregarAlCarrito(numeroProducto) {
-  const cantidad = 1; 
-  if (carrito[numeroProducto]) {
-      carrito[numeroProducto] += cantidad;
-  } else {
-      carrito[numeroProducto] = cantidad;
-  }
-
+function eliminarProducto(numeroProducto) {
+  delete carrito[numeroProducto];
   verCarrito();
   calcularTotal();
-
-  localStorage.setItem('carrito', JSON.stringify(carrito));
-  mostrarAlerta(`Producto ${productos[numeroProducto].nombre} agregado al carrito.`);
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  if (Object.keys(carrito).length === 0) {
+    ocultarSeccionesCarrito();
+  }
 }
 
+function sumarCantidad(numeroProducto) {
+  carrito[numeroProducto]++;
+  verCarrito();
+  calcularTotal();
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+function restarCantidad(numeroProducto) {
+  if (carrito[numeroProducto] > 1) {
+    carrito[numeroProducto]--;
+  } else {
+    delete carrito[numeroProducto];
+  }
+  verCarrito();
+  calcularTotal();
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  if (Object.keys(carrito).length === 0) {
+    ocultarSeccionesCarrito();
+  }
+}
+
+function agregarAlCarrito(numeroProducto) {
+  const productos = window.productosGlobal;
+  const cantidad = 1;
+
+  if (carrito[numeroProducto]) {
+    carrito[numeroProducto] += cantidad;
+  } else {
+    carrito[numeroProducto] = cantidad;
+  }
+
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  verCarrito();
+  calcularTotal();
+  mostrarSeccionesCarrito();
+}
 
 function verCarrito() {
-  const seccionCarrito = document.getElementById('carrito');
-  seccionCarrito.innerHTML = '<h2>Carrito:</h2>';
+  const productos = window.productosGlobal;
+  const seccionCarrito = document.getElementById("carrito");
+  seccionCarrito.innerHTML = "";
   seccionCarrito.innerHTML += '<div class="productosCarrito">';
 
   Object.keys(carrito).forEach((numeroProducto) => {
-      const producto = productos[numeroProducto];
-      const divItemCarrito = document.createElement('div');
-      divItemCarrito.className = 'itemCarrito';
-      divItemCarrito.innerHTML = `
+    const producto = productos[numeroProducto];
+    if (!producto) {
+      console.error(
+        `Producto con el número ${numeroProducto} no encontrado en productos.`
+      );
+      return;
+    }
+    const divItemCarrito = document.createElement("div");
+    divItemCarrito.className = "itemCarrito";
+    divItemCarrito.innerHTML = `
       <img src="${producto.imagen}" alt="${producto.nombre}" class="imagenCarrito">
       <div class="infoProductoCarrito">
         <p class="nombreProductoCarrito">${producto.nombre}</p>
-        <p>Cantidad: ${carrito[numeroProducto]}</p>
+        <p>Cantidad: 
+          <button class="accionCarrito" onclick="restarCantidad('${numeroProducto}')">-</button>
+          ${carrito[numeroProducto]}
+          <button class="accionCarrito" onclick="sumarCantidad('${numeroProducto}')">+</button>
+        </p>
         <p>Precio: $${producto.precio}</p>
+        <button class="eliminarProducto accionCarrito" onclick="eliminarProducto('${numeroProducto}')">Eliminar</button>
       </div>
     `;
-      seccionCarrito.appendChild(divItemCarrito);
+    seccionCarrito.appendChild(divItemCarrito);
   });
-  seccionCarrito.innerHTML += '</div>';
+  seccionCarrito.innerHTML += "</div>";
 }
 
 function calcularTotal() {
+  const productos = window.productosGlobal;
   let total = 0;
   Object.keys(carrito).forEach((numeroProducto) => {
+    const producto = productos[numeroProducto];
+    if (producto) {
       const cantidad = carrito[numeroProducto];
-      const precio = productos[numeroProducto].precio;
+      const precio = producto.precio;
       total += cantidad * precio;
+    }
   });
 
-  const seccionTotal = document.getElementById('total');
+  const seccionTotal = document.getElementById("total");
   seccionTotal.innerHTML = `
     <div>
       <h3>Total:</h3>
@@ -92,48 +164,38 @@ function calcularTotal() {
 }
 
 function vaciarCarrito() {
-  carrito = {}; 
-  verCarrito(); 
-  calcularTotal(); 
-  localStorage.removeItem('carrito');
-  mostrarAlerta('El carrito ha sido vaciado.');
+  carrito = {};
+  verCarrito();
+  calcularTotal();
+  localStorage.removeItem("carrito");
+  mostrarAlerta("El carrito ha sido vaciado.");
+  ocultarSeccionesCarrito();
+}
+
+function finalizarCompra() {
+  if (Object.keys(carrito).length === 0) {
+    mostrarAlerta(
+      "El carrito está vacío, debe agregar productos para realizar una compra."
+    );
+  } else {
+    mostrarAlerta("Gracias por tu compra. ¡Hasta la próxima!");
+    vaciarCarrito();
+  }
 }
 
 function mostrarAlerta(mensaje) {
-  const alertDiv = document.createElement('div');
-  alertDiv.classList.add('alertMesj');
+  const alertDiv = document.createElement("div");
+  alertDiv.classList.add("alertMesj");
   alertDiv.textContent = mensaje;
 
-  const botAcept = document.createElement('button');
-  botAcept.textContent = 'Aceptar';
-  botAcept.onclick = function() {
+  const botAcept = document.createElement("button");
+  botAcept.textContent = "Aceptar";
+  botAcept.onclick = function () {
     alertDiv.remove();
   };
-  botAcept.classList.add('botAcept');
+  botAcept.classList.add("botAcept");
 
   alertDiv.appendChild(botAcept);
 
-  document.getElementById('alertContainer').appendChild(alertDiv);
+  document.getElementById("alertContainer").appendChild(alertDiv);
 }
-
-// Eventos para los botones 
-document.addEventListener('DOMContentLoaded', () => {
-  const btnVerProductos = document.getElementById('verProductos');
-  const btnVerCarrito = document.getElementById('verCarrito');
-  const btnFinalizarCompra = document.getElementById('finalizarCompra');
-  const btnVaciarCarrito = document.getElementById('vaciarCarrito');
-  
-  btnVerProductos.addEventListener('click', mostrarProductos);
-  btnVerCarrito.addEventListener('click', verCarrito);
-  btnFinalizarCompra.addEventListener('click', () => {
-      mostrarAlerta('Gracias por tu compra. ¡Hasta la próxima!');
-  });
-  btnVaciarCarrito.addEventListener('click', vaciarCarrito);
-
-  mostrarProductos();
-  if (Object.keys(carrito).length > 0) {
-    verCarrito();
-    calcularTotal();
-  }
-});
-

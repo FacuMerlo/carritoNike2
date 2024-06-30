@@ -37,57 +37,64 @@
     <!--Main-->
     <main>
       <section id="productos" class="gridContainer"></section>
-      <section id="carrito" class="carritoCss"></section>
-      <section id="total" class="totalCss"></section>
+      <section id="carritoSection" class="ocultar">
+        <h2 class="tituloCarrito">Carrito de Compras</h2>
+        <div id="carrito" class="carritoCss"></div>
+        <div id="total" class="totalCss"></div>
+      </section>
       <div id="alertContainer" class="AlertMensCont"></div>
       <section>
-        <button id="verProductos" class="ocultar">Ver Productos</button>
-        <button id="verCarrito" class="ocultar">Ver Carrito</button>
-        <button id="finalizarCompra">Finalizar Compra</button>
-        <button id="vaciarCarrito">Vaciar Carrito</button>
+        <button id="verProductos" class="ocultarT">Ver Productos</button>
+        <button id="verCarrito" class="ocultarT">Ver Carrito</button>
+        <button id="finalizarCompra" class="ocultar">Finalizar Compra</button>
+        <button id="vaciarCarrito" class="ocultar">Vaciar Carrito</button>
       </section>
     </main>
 
     <!--Footer-->
     <footer class="footerMain">
-        <div class="footerTop">
-          <div class="footerBrand">
-            <img src="./assets/img/icons8-nike-100.png" alt="Logo Nike" class="footerLogo">
-            <p>Explora la innovación y el rendimiento que caracterizan a Nike.</p>
+      <div class="footerTop">
+        <div class="footerBrand">
+          <img
+            src="./assets/img/icons8-nike-100.png"
+            alt="Logo Nike"
+            class="footerLogo"
+          />
+          <p>Explora la innovación y el rendimiento que caracterizan a Nike.</p>
+        </div>
+        <div class="footerLinks">
+          <div class="footerColumn">
+            <h4>AYUDA</h4>
+            <ul>
+              <li><a href="#">Envíos y entregas</a></li>
+              <li><a href="#">Devoluciones</a></li>
+              <li><a href="#">Cambios</a></li>
+              <li><a href="#">Opciones de pago</a></li>
+            </ul>
           </div>
-          <div class="footerLinks">
-            <div class="footerColumn">
-              <h4>AYUDA</h4>
-              <ul>
-                <li><a href="#">Envíos y entregas</a></li>
-                <li><a href="#">Devoluciones</a></li>
-                <li><a href="#">Cambios</a></li>
-                <li><a href="#">Opciones de pago</a></li>
-              </ul>
-            </div>
-            <div class="footerColumn">
-              <h4>ACERCA DE NIKE</h4>
-              <ul>
-                <li><a href="#">Propósito</a></li>
-                <li><a href="#">Noticias</a></li>
-                <li><a href="#">Promociones</a></li>
-                <li><a href="#">Contacto</a></li>
-              </ul>
-            </div>
-            <div class="footerColumn">
-              <h4>LEGAL</h4>
-              <ul>
-                <li><a href="#">Términos de uso</a></li>
-                <li><a href="#">Privacidad y cookies</a></li>
-                <li><a href="#">Condiciones de venta</a></li>
-              </ul>
-            </div>
+          <div class="footerColumn">
+            <h4>ACERCA DE NIKE</h4>
+            <ul>
+              <li><a href="#">Propósito</a></li>
+              <li><a href="#">Noticias</a></li>
+              <li><a href="#">Promociones</a></li>
+              <li><a href="#">Contacto</a></li>
+            </ul>
+          </div>
+          <div class="footerColumn">
+            <h4>LEGAL</h4>
+            <ul>
+              <li><a href="#">Términos de uso</a></li>
+              <li><a href="#">Privacidad y cookies</a></li>
+              <li><a href="#">Condiciones de venta</a></li>
+            </ul>
           </div>
         </div>
-        <div class="footerBottom">
-          <p>© 2024 Nike Argentina. Todos los derechos reservados.</p>
-          <p>Diseñado por Facundo Nicolas Merlo</p>
-        </div>
-      </footer>      
+      </div>
+      <div class="footerBottom">
+        <p>© 2024 Nike Argentina. Todos los derechos reservados.</p>
+        <p>Diseñado por Facundo Nicolas Merlo</p>
+      </div>
+    </footer>
   </body>
 </html>

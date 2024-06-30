@@ -1,0 +1,62 @@
+{
+  "1": {
+    "nombre": "Remera Jordan Jumpman",
+    "precio": 45999,
+    "imagen": "./assets/img/remeraJordanJumpman.jpg"
+  },
+  "2": {
+    "nombre": "Remera Jordan Flight Heritage 85",
+    "precio": 69999,
+    "imagen": "./assets/img/remeraJordanFlightHeritage85.jpg"
+  },
+  "3": {
+    "nombre": "Buzo Nike Sportswear Tech Fleece OG",
+    "precio": 197999,
+    "imagen": "./assets/img/buzoNikeSportswearTechFleeceOg.jpg"
+  },
+  "4": {
+    "nombre": "Buzo Ja Standard Issue",
+    "precio": 101499,
+    "imagen": "./assets/img/buzoJaStandardIssue.jpg"
+  },
+  "5": {
+    "nombre": "Pantalón Jordan Essentials",
+    "precio": 139999,
+    "imagen": "./assets/img/pantalonJordanEssentials.jpg"
+  },
+  "6": {
+    "nombre": "Pantalón Nike Sportswear Club",
+    "precio": 86499,
+    "imagen": "./assets/img/pantalonNikeSportswearClub.jpg"
+  },
+  "7": {
+    "nombre": "Zapatillas Nike Air Force 1 07",
+    "precio": 209999,
+    "imagen": "./assets/img/zapatillasNikeAirForce107.jpg"
+  },
+  "8": {
+    "nombre": "Zapatillas Air Jordan 1 Low",
+    "precio": 209999,
+    "imagen": "./assets/img/zapatillasAirJordan1Low.jpg"
+  },
+  "9": {
+    "nombre": "Campera Jordan para Mujer",
+    "precio": 197999,
+    "imagen": "./assets/img/camperaJordanParaMujer.jpg"
+  },
+  "10": {
+    "nombre": "Campera Nike Sportswear Trend",
+    "precio": 180249,
+    "imagen": "./assets/img/camperaNikeSportswearTrend.jpg"
+  },
+  "11": {
+    "nombre": "Pelota Nike Mercurial Fade",
+    "precio": 41999,
+    "imagen": "./assets/img/pelotaNikeMercurialFade.jpg"
+  },
+  "12": {
+    "nombre": "Gorro Nike Apex",
+    "precio": 45999,
+    "imagen": "./assets/img/gorroNikeApex.jpg"
+  }
+}
