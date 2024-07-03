@@ -29,10 +29,27 @@ body {
 header {
   background-color: var(--color-primario);
   color: var(--color-terciario);
-  padding: 10px 0;
+  padding: 10px 20px;
   text-align: center;
   position: sticky;
   top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.headerContent {
+  display: flex;
+  align-items: center;
+}
+
+.headerLogo {
+  width: 50px;
+  margin-right: 10px;
+}
+
+header h1 {
+  margin: 0;
 }
 
 /* Main Section */
@@ -150,28 +167,28 @@ button:hover {
   opacity: 0.8;
 }
 
-/* Alerta Mensajes */
-.AlertMensCont {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  z-index: 1000;
-}
-
-.alertMesj {
+.botonCarrito {
+  background-color: var(--color-acento);
+  color: white;
+  font-weight: bolder;
+  font-size: 1rem;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid transparent;
-  border-radius: 4px;
-  background-color: var(--color-alert);
-  color: var(--color-texto);
-  text-align: center;
-  position: relative;
 }
 
+.botonCarrito img {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.botonCarrito:hover {
+  background-color: #ffc371;
+}
 .botAcept {
   padding: 5px 10px;
   margin-left: 10px;
@@ -252,7 +269,16 @@ button:hover {
 /* Media Queries */
 @media (max-width: 768px) {
   header {
-    padding: 5px 0;
+    flex-direction: column;
+    padding: 10px 0;
+  }
+
+  .headerContent {
+    margin-bottom: 10px;
+  }
+
+  .botonCarrito {
+    margin-top: 10px;
   }
 
   button {
@@ -288,8 +314,23 @@ button:hover {
     grid-template-columns: 1fr;
   }
 
+  header {
+    padding: 10px 0;
+  }
+
+  .headerLogo {
+    width: 40px;
+    margin-right: 5px;
+  }
+
   header h1 {
     font-size: 1.5em;
+  }
+
+  .botonCarrito {
+    font-size: 15px;
+    padding: 8px 15px;
+    width: 30%;
   }
 
   .productoImagen {

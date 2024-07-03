@@ -25,13 +25,42 @@
     <!--Icon-->
     <link rel="icon" href="./assets/img/favicon.ico" />
 
+    <!-- SweetAlert -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- Toastify -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
     <!--Firma DEV-->
     <meta name="author" content="Facundo Nicolas Merlo" />
   </head>
   <body>
     <!--header-->
     <header>
-      <h1>Tienda NIKE</h1>
+      <div class="headerContent">
+        <img
+          src="./assets/img/logo-nike.png"
+          alt="Logo Nike"
+          class="headerLogo"
+        />
+        <h1>Tienda NIKE</h1>
+      </div>
+      <button id="irAlCarrito" class="botonCarrito">
+        <img
+          class="imgCarrito"
+          src="./assets/img/icono-carrito.png"
+          alt="Carrito de Compras"
+        />
+        Ir al Carrito
+      </button>
     </header>
 
     <!--Main-->

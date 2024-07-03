@@ -21,9 +21,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const btnFinalizarCompra = document.getElementById("finalizarCompra");
   const btnVaciarCarrito = document.getElementById("vaciarCarrito");
+  const btnIrAlCarrito = document.getElementById("irAlCarrito");
 
   btnFinalizarCompra.addEventListener("click", finalizarCompra);
   btnVaciarCarrito.addEventListener("click", vaciarCarrito);
+  btnIrAlCarrito.addEventListener("click", () => {
+    document.getElementById("carrito").scrollIntoView({ behavior: "smooth" });
+  });
 });
 
 let carrito = JSON.parse(localStorage.getItem("carrito")) || {};
@@ -62,10 +66,20 @@ function mostrarProductos(productos) {
 }
 
 function eliminarProducto(numeroProducto) {
+  const productoEliminado = window.productosGlobal[numeroProducto].nombre;
   delete carrito[numeroProducto];
   verCarrito();
   calcularTotal();
   localStorage.setItem("carrito", JSON.stringify(carrito));
+  Toastify({
+    text: `El producto "${productoEliminado}" ha sido eliminado del carrito.`,
+    duration: 3000,
+    close: true,
+    gravity: "top",
+    position: "right",
+    backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+    stopOnFocus: true,
+  }).showToast();
   if (Object.keys(carrito).length === 0) {
     ocultarSeccionesCarrito();
   }
@@ -96,6 +110,8 @@ function agregarAlCarrito(numeroProducto) {
   const productos = window.productosGlobal;
   const cantidad = 1;
 
+  const productoNuevo = !carrito[numeroProducto];
+
   if (carrito[numeroProducto]) {
     carrito[numeroProducto] += cantidad;
   } else {
@@ -106,6 +122,12 @@ function agregarAlCarrito(numeroProducto) {
   verCarrito();
   calcularTotal();
   mostrarSeccionesCarrito();
+
+  if (productoNuevo) {
+    mostrarAlertaTemporal(
+      `El producto "${productos[numeroProducto].nombre}" ha sido agregado al carrito.`
+    );
+  }
 }
 
 function verCarrito() {
@@ -168,34 +190,46 @@ function vaciarCarrito() {
   verCarrito();
   calcularTotal();
   localStorage.removeItem("carrito");
-  mostrarAlerta("El carrito ha sido vaciado.");
+  Toastify({
+    text: "El carrito ha sido vaciado.",
+    duration: 3000,
+    close: true,
+    gravity: "top",
+    position: "right",
+    backgroundColor: "linear-gradient(to right, #ff5f6d, #ffc371)",
+    stopOnFocus: true,
+  }).showToast();
   ocultarSeccionesCarrito();
 }
 
 function finalizarCompra() {
   if (Object.keys(carrito).length === 0) {
-    mostrarAlerta(
-      "El carrito está vacío, debe agregar productos para realizar una compra."
-    );
+    Swal.fire({
+      icon: "warning",
+      title: "Carrito vacío",
+      text: "El carrito está vacío, debe agregar productos para realizar una compra.",
+      confirmButtonText: "Aceptar",
+    });
   } else {
-    mostrarAlerta("Gracias por tu compra. ¡Hasta la próxima!");
-    vaciarCarrito();
+    Swal.fire({
+      icon: "success",
+      title: "Compra finalizada",
+      text: "Gracias por tu compra. ¡Hasta la próxima!",
+      confirmButtonText: "Aceptar",
+    }).then(() => {
+      vaciarCarrito();
+    });
   }
 }
 
-function mostrarAlerta(mensaje) {
-  const alertDiv = document.createElement("div");
-  alertDiv.classList.add("alertMesj");
-  alertDiv.textContent = mensaje;
-
-  const botAcept = document.createElement("button");
-  botAcept.textContent = "Aceptar";
-  botAcept.onclick = function () {
-    alertDiv.remove();
-  };
-  botAcept.classList.add("botAcept");
-
-  alertDiv.appendChild(botAcept);
-
-  document.getElementById("alertContainer").appendChild(alertDiv);
+function mostrarAlertaTemporal(mensaje) {
+  Toastify({
+    text: mensaje,
+    duration: 3000,
+    close: true,
+    gravity: "top",
+    position: "right",
+    backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+    stopOnFocus: true,
+  }).showToast();
 }
